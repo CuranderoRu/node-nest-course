@@ -1,16 +1,15 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { SequelizeModule } from "@nestjs/sequelize";
-import { UsersController } from "./users/users.controller";
+import { User } from "./users/users.model";
 import { UsersModule } from './users/users.module';
-import { UsersService } from "./users/users.service";
 
 @Module({
-  controllers: [UsersController],
-  providers: [UsersService],
+  controllers: [],
+  providers: [],
   imports: [
     ConfigModule.forRoot({
-      envFilePath: '.env',
+      envFilePath: `.${process.env.NODE_ENV}.env`,
     }),
     SequelizeModule.forRoot({
       dialect: 'postgres',
@@ -19,7 +18,7 @@ import { UsersService } from "./users/users.service";
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [],
+      models: [User],
       autoLoadModels: true,
     }),
     UsersModule
