@@ -8,6 +8,12 @@ interface UserCreationAttrs {
   password: string;
 }
 
+export interface UserRole {
+  id: number,
+  value: string;
+  description: string;
+}
+
 @Table({tableName: 'users'})
 export class User extends Model<User, UserCreationAttrs>{
   @ApiProperty({example: '1', description: 'Unique identifier'})
@@ -32,5 +38,7 @@ export class User extends Model<User, UserCreationAttrs>{
 
   @BelongsToMany(() => Role, () => UserRoles)
   roles: Role[]
+
+  _roles: UserRole[]
 
 }
